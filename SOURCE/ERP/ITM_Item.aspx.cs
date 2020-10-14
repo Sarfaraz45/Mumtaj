@@ -90,7 +90,7 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
 
 
     [WebMethod]
-    public static string InsertRegion(string ITEMName, string ItemCode, string BarCode, string Discription, string UserID, string UnitTypeID, string DistPerc, string TradePrice, string RetailPrice, string PackingTypeID, string txtWt)
+    public static string InsertRegion(string ITEMName, string ItemCode, string BarCode, string Discription, string UserID, string UnitTypeID, string DistPerc, string TradePrice, string RetailPrice, string PackingTypeID, string txtWt, string txtLtr)
        
     {
 
@@ -112,13 +112,14 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
         SqlParameter RetailPrice_P = new SqlParameter("@RetailPrice", RetailPrice);
         SqlParameter PackingTypeID_P = new SqlParameter("@PackingTypeID", PackingTypeID);
         SqlParameter Wt = new SqlParameter("@Wt", txtWt);
+        SqlParameter Ltr = new SqlParameter("@Ltr", txtLtr);
 
 
 
         //isale=1
         //ispurchase=0
 
-        msg = AACommon.Execute("ITM_ITEM_INSERT_V2", Conn, ITEMID_P, ITEMName_P, ItemCode_P, BarCode_P, Discription_P, CREATEBY, IsSale_P, IsPurchase_P, UnitTypeID_P, DistPercentage_P, TradePrice_P, RetailPrice_P, PackingTypeID_P, Wt);
+        msg = AACommon.Execute("ITM_ITEM_INSERT_V3", Conn, ITEMID_P, ITEMName_P, ItemCode_P, BarCode_P, Discription_P, CREATEBY, IsSale_P, IsPurchase_P, UnitTypeID_P, DistPercentage_P, TradePrice_P, RetailPrice_P, PackingTypeID_P, Wt, Ltr);
 
 
         if (msg == "Record Saved Successfully")
@@ -135,7 +136,7 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
 
 
     [WebMethod]
-    public static string UpdateRegion(string ITEMID, string ITEMName, string ItemCode, string BarCode, string Discription, string UnitTypeID, string DistPerc, string TradePrice, string RetailPrice, string PackingTypeID, string txtWt)
+    public static string UpdateRegion(string ITEMID, string ITEMName, string ItemCode, string BarCode, string Discription, string UnitTypeID, string DistPerc, string TradePrice, string RetailPrice, string PackingTypeID, string txtWt, string txtLtr)
     {
         string retMessage = string.Empty;
         string msg = "";
@@ -151,7 +152,8 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
         SqlParameter RetailPrice_P = new SqlParameter("@RetailPrice", RetailPrice);
         SqlParameter PackingTypeID_P = new SqlParameter("@PackingTypeID", PackingTypeID);
         SqlParameter Wt = new SqlParameter("@Wt", txtWt);
-        msg = AACommon.Execute("ITM_ITEM_UPDATE_V2", Conn, ITEMID_P, ITEMName_P, ItemCode_P, BarCode_P, Discription_P, UnitTypeID_P, DistPercentage_P, TradePrice_P, RetailPrice_P, PackingTypeID_P, Wt);
+        SqlParameter Ltr = new SqlParameter("@Ltr", txtLtr);
+        msg = AACommon.Execute("ITM_ITEM_UPDATE_V3", Conn, ITEMID_P, ITEMName_P, ItemCode_P, BarCode_P, Discription_P, UnitTypeID_P, DistPercentage_P, TradePrice_P, RetailPrice_P, PackingTypeID_P, Wt, Ltr);
 
 
         if (msg == "Record Saved Successfully")
@@ -236,6 +238,7 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
             dbdc.RetailPrice = ds.Tables[0].Rows[i]["RetailPrice"].ToString();
             dbdc.PackingTypeID = ds.Tables[0].Rows[i]["PackingTypeID"].ToString();
             dbdc.Wt = ds.Tables[0].Rows[i]["Wt"].ToString();
+            dbdc.Ltr = ds.Tables[0].Rows[i]["Ltr"].ToString();
 
             RegionList.Insert(i, dbdc);
         }
@@ -274,6 +277,7 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
         public string ID { get; set; }
         public string Name { get; set; }
         public string Wt { get; set; }
+        public string Ltr { get; set; }
     }
 
 
@@ -349,13 +353,15 @@ public partial class ITM_Item_ERP : System.Web.UI.Page
         public string PackingTypeDesc { get; set; }
     }
 
-  
-
-
-  
 
 
 
 
 
+
+
+
+
+
+    public static object txtLtr { get; set; }
 }

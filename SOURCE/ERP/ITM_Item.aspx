@@ -184,16 +184,30 @@
                                                 </div>
                                                 </div>
 
-                                                     <div class="col-md-6">
+                                                     <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label" for="example-palaceholder">Weight in KG</label>
-                                                    <input type="text" class="form-control is-invalid" placeholder="Enter Weight in KG" id="txtWt" autocomplete="off"  onkeyup="CheckDataLengthV2(this);">
+                                                    <input type="number" class="form-control is-invalid" value= "0" placeholder="Enter Weight in KG" id="txtWt" autocomplete="off"  onkeyup="CheckDataLengthV2(this)" onchange="KgtoLtr(this.value)";>
                                                      <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
                                                         <div class="invalid-feedback">
                                                           Please provide a valid Weight in KG.
                                                         </div>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="example-palaceholder">Weight in LTR</label>
+                                                    <input type="number" class="form-control is-invalid" value= "0" placeholder="Enter Weight in LTR" id="txtLtr" onchange="LtrtoKg(this.value)" autocomplete="off"  onkeyup="CheckDataLengthV2(this)"; />
+                                                    
+                                                     <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Weight in LTR.
+                                                        </div>
+                                                       
                                                 </div>
                                                 </div>
                                                 </div>

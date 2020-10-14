@@ -4,6 +4,33 @@
 LoadHead();
 LoadHead1();
 
+function KgtoLtr(num) {
+    var result1 = document.getElementById("txtLtr").value = num * 0.9;
+   var fix = result1.toFixed(3);
+   document.getElementById("txtLtr").value = fix;
+
+//    if (result1 == 2) {
+//        document.getElementById("txtLtr").value = result1
+//    }
+//    else {
+//        document.getElementById("txtLtr").value = result;
+
+//    }
+}
+
+function LtrtoKg(num) {
+    var result = document.getElementById("txtWt").value = num / 0.9;
+    var fix1 = result.toFixed(3);
+    document.getElementById("txtWt").value = fix1;
+//    if (result == 1) {
+//        document.getElementById("txtWt").value = result1;
+//    }
+//    else {
+//        document.getElementById("txtWt").value = result;
+//    }
+}
+
+
 function CheckDataLengthV2(a) {
     // alert("hello");
     var field = document.getElementById(a.id).value;
@@ -317,7 +344,7 @@ function LoadRegion() {
 
             ro = "<table id='tablepaging' class='table table-striped table-hover no-head-border' style='cursor: pointer;' ><thead class='vd_bg-dark-blue vd_white'><th>ID</th><th>Item Name</th><th>Item Code</th></thead><tbody>";
             $.each(jsdata, function (key, value) {
-                ro += "<tr><td   class='one'>" + value.ITEMID + "</td>   <td   class='two'>" + value.ITEMName + "</td>    <td   class='three'>" + value.ItemCode + "</td>    <td  style='display:none;' class='four'>" + value.BarCode + "</td>  <td  style='display:none;'  class='five'>" + value.Discription + "</td> <td   style='display:none;' class='six'>" + value.UnitTypeID + "</td><td   style='display:none;' class='seven'>" + value.DistPercentage + "</td> <td   style='display:none;' class='eight'>" + value.TradePrice + "</td> <td   style='display:none;' class='nine'>" + value.RetailPrice + "</td><td   style='display:none;' class='ten'>" + value.PackingTypeID + "</td><td   style='display:none;' class='eleven'>" + value.Wt + "</td>  </tr>";
+                ro += "<tr><td   class='one'>" + value.ITEMID + "</td>   <td   class='two'>" + value.ITEMName + "</td>    <td   class='three'>" + value.ItemCode + "</td>    <td  style='display:none;' class='four'>" + value.BarCode + "</td>  <td  style='display:none;'  class='five'>" + value.Discription + "</td> <td   style='display:none;' class='six'>" + value.UnitTypeID + "</td><td   style='display:none;' class='seven'>" + value.DistPercentage + "</td> <td   style='display:none;' class='eight'>" + value.TradePrice + "</td> <td   style='display:none;' class='nine'>" + value.RetailPrice + "</td><td   style='display:none;' class='ten'>" + value.PackingTypeID + "</td><td   style='display:none;' class='eleven'>" + value.Wt + "</td>  <td   style='display:none;' class='twelve'>" + value.Ltr + "</td> </tr>";
 
             });
             ro = ro + "</tbody></table>";
@@ -354,10 +381,11 @@ function InsertRegion() {
    var ddl = document.getElementById("ddlHead").value;
    var ddlPacking = document.getElementById("ddlHead1").value;
    var txtWt = document.getElementById("txtWt").value;
-    
+   var txtLtr = document.getElementById("txtLtr").value;
+   
     var UserID = localStorage.getItem("UserID");
-    var dataToSend = JSON.stringify({ 'ITEMName': $('#txtitemname').val(), 'ItemCode': $('#txtItemCode').val(), 'BarCode': $('#txtbarcode').val(), 'Discription': $('#txtDiscription').val(), 'UserID': UserID, 'UnitTypeID': ddl, 'DistPerc': $('#txtdistPer').val(), 'TradePrice': $('#txtTradePrice').val(), 'RetailPrice': $('#txtRetailPrice').val(), 'PackingTypeID': ddlPacking, 'txtWt': txtWt });
-    // alert(dataToSend);
+    var dataToSend = JSON.stringify({ 'ITEMName': $('#txtitemname').val(), 'ItemCode': $('#txtItemCode').val(), 'BarCode': $('#txtbarcode').val(), 'Discription': $('#txtDiscription').val(), 'UserID': UserID, 'UnitTypeID': ddl, 'DistPerc': $('#txtdistPer').val(), 'TradePrice': $('#txtTradePrice').val(), 'RetailPrice': $('#txtRetailPrice').val(), 'PackingTypeID': ddlPacking, 'txtWt': txtWt, 'txtLtr':txtLtr });
+    //alert(dataToSend);
     var results = $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -365,7 +393,7 @@ function InsertRegion() {
         dataType: "json",
         data: dataToSend,
         //data: "{'RegionName':'" + $('#txtunittype').val() + "'}",                
-        async: false,
+//        async: false,
         success: function (data) {
             var obj = data.d;
             if (obj == 'true') {
@@ -393,7 +421,9 @@ function UpdateRegion() {
     var ddlPacking = document.getElementById("ddlHead1").value;
 
     var txtWt = document.getElementById("txtWt").value;
-    var dataToSend = JSON.stringify({ 'ITEMID': document.getElementById("lblID").innerHTML, 'ITEMName': $('#txtitemname').val(), 'ItemCode': $('#txtItemCode').val(), 'BarCode': $('#txtbarcode').val(), 'Discription': $('#txtDiscription').val(), 'UnitTypeID': ddl, 'DistPerc': $('#txtdistPer').val(), 'TradePrice': $('#txtTradePrice').val(), 'RetailPrice': $('#txtRetailPrice').val(), 'PackingTypeID': ddlPacking, 'txtWt': txtWt });
+    var txtLtr = document.getElementById("txtLtr").value;
+    
+    var dataToSend = JSON.stringify({ 'ITEMID': document.getElementById("lblID").innerHTML, 'ITEMName': $('#txtitemname').val(), 'ItemCode': $('#txtItemCode').val(), 'BarCode': $('#txtbarcode').val(), 'Discription': $('#txtDiscription').val(), 'UnitTypeID': ddl, 'DistPerc': $('#txtdistPer').val(), 'TradePrice': $('#txtTradePrice').val(), 'RetailPrice': $('#txtRetailPrice').val(), 'PackingTypeID': ddlPacking, 'txtWt':txtWt, 'txtLtr': txtLtr });
   // alert(dataToSend);
     var results = $.ajax({
         type: "POST",
@@ -571,6 +601,14 @@ function SaveData() {
         return false;
     }
 
+    var field = document.getElementById("txtLtr").value;
+    if (field == "" || field == null) {
+        return false;
+    }
+    var field = document.getElementById("txtWt").value;
+    if (field == "" || field == null) {
+        return false;
+    }
 
     var field = document.getElementById("ddlHead1").value;
     if (field == "" || field == null || field == "0") {
@@ -600,6 +638,7 @@ function Clear() {
     $('#txtRetailPrice').val('');
     $('#ddlHead').val('');
     $('#txtWt').val('');
+    $('#txtLtr').val('');
     $('#ddlHead1').val('');
     CheckDataLength();
 
@@ -623,6 +662,7 @@ function Clear() {
             document.getElementById("ddlHead").value = $(this).closest('tr').children('td.six').text();
             document.getElementById("ddlHead1").value = $(this).closest('tr').children('td.ten').text();
             document.getElementById("txtWt").value = $(this).closest('tr').children('td.eleven').text();
+            document.getElementById("txtLtr").value = $(this).closest('tr').children('td.twelve').text();
 
 
             $("#btnSave").text("Update");
