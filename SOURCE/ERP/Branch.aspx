@@ -13,7 +13,7 @@
                         
                         <div class="subheader">
                             <h1 class="subheader-title">
-                                <i class='subheader-icon fal fa-edit'></i> Select Branch
+                                <i class='subheader-icon fal fa-edit'></i> Branch Form
                             </h1>
                         </div>
                      
@@ -24,7 +24,7 @@
                                 <div id="panel-1" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                            Branch Selection 
+                                            Branch Description 
                                         </h2>
 
                                         <div class="panel-toolbar">
@@ -40,8 +40,8 @@
                                                    <div class="row">
                                                   <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="example-palaceholder">Branch Selection</label>
-                                                    <input type="text" class="form-control is-invalid" placeholder="Select Branch" id="txtBranch" autocomplete="off" onkeyup="CheckDataLength();" >
+                                                    <label class="form-label" for="example-palaceholder">Branch </label>
+                                                    <input type="text" class="form-control is-invalid" placeholder="Type Branch Here" id="txtBranch" autocomplete="off" onkeyup="CheckDataLength();" >
                                                      <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
