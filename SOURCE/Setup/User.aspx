@@ -2,9 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
-     <script src="../jquery-1.8.2.js"></script>
-    <script src="../jquery.min.js"></script>
+    <%-- <script src="../jquery-1.8.2.js"></script>
+    <script src="../jquery.min.js"></script>--%>
 
+       <script src="../js/jquery.min.js" type="text/javascript"></script>
+    <script src="..js//jquery-1.8.2.js" type="text/javascript"></script>
+         <link rel="stylesheet" media="screen, print" href="../css/notifications/toastr/toastr.css">
+         <script src="../js/notifications/toastr/toastr.js"></script>
 
     <style type="text/css">
         .highlight{
@@ -209,7 +213,7 @@ border-color: #d8dde1;
                     ro = "<table id='tablepaging' class='table table-hover'  style='cursor: pointer;'><thead><th>ID</th><th>Name</th><th>Login ID</th></thead><tbody>";
                     $.each(jsdata, function (key, value) {
                         //ro += "<tr><td width='10%'><button type='button' class='btn btn-info m-r-5 m-b-5' id='" + value.ID + "' title='" + value.Name + "' onclick=\"GetRegion('" + value.ID + "','" + value.Name + "');\">Edit</button></td><td width='30%'>" + value.ID + "</td><td width='60%'  class='two'>" + value.Name + "</td></tr>";
-                        ro += "<tr><td width='25%'  class='one'>" + value.ID + "</td><td width='40%'  class='two'>" + value.Name + "</td><td width='35%'  class='three'>" + value.Login + "</td><td style='display:none;'  class='four'>" + value.Email + "</td><td style='display:none;'  class='five'>" + value.Phone + "</td><td style='display:none;'  class='six'>" + value.Manager + "</td><td style='display:none;'  class='seven'>" + value.UTID + "</td><td style='display:none;'  class='nine'>" + value.PWD + "</td></tr>";
+                        ro += "<tr><td width='25%'  class='one'>" + value.ID + "</td><td width='40%'  class='two'>" + value.Name + "</td><td width='35%'  class='three'>" + value.Login + "</td><td style='display:none;'  class='four'>" + value.Email + "</td><td style='display:none;'  class='five'>" + value.Phone + "</td><td style='display:none;'  class='six'>" + value.Manager + "</td> <td style='display:none;'  class='sixOne'>" + value.BranchID + "</td><td style='display:none;'  class='seven'>" + value.UTID + "</td><td style='display:none;'  class='nine'>" + value.PWD + "</td></tr>";
 
                     });
                     ro = ro + "</tbody></table>";
@@ -252,7 +256,7 @@ border-color: #d8dde1;
                     ro = "<table id='tablepaging' class='table table-hover'   style='cursor: pointer;'><thead><th>ID</th><th>Name</th><th>Login ID</th></thead><tbody>";
                     $.each(jsdata, function (key, value) {
                         //ro += "<tr><td width='10%'><button type='button' class='btn btn-info m-r-5 m-b-5' id='" + value.ID + "' title='" + value.Name + "' onclick=\"GetRegion('" + value.ID + "','" + value.Name + "');\">Edit</button></td><td width='30%'>" + value.ID + "</td><td width='60%'  class='two'>" + value.Name + "</td></tr>";
-                        ro += "<tr><td width='25%'  class='one'>" + value.ID + "</td><td width='40%'  class='two'>" + value.Name + "</td><td width='35%'  class='three'>" + value.Login + "</td><td style='display:none;'  class='four'>" + value.Email + "</td><td style='display:none;'  class='five'>" + value.Phone + "</td><td style='display:none;'  class='six'>" + value.Manager + "</td><td style='display:none;'  class='seven'>" + value.UTID + "</td><td style='display:none;'  class='nine'>" + value.PWD + "</td></tr>";
+                        ro += "<tr><td width='25%'  class='one'>" + value.ID + "</td><td width='40%'  class='two'>" + value.Name + "</td><td width='35%'  class='three'>" + value.Login + "</td><td style='display:none;'  class='four'>" + value.Email + "</td><td style='display:none;'  class='five'>" + value.Phone + "</td><td style='display:none;'  class='six'>" + value.Manager + "</td><td style='display:none;'  class='sixOne'>" + value.BranchID + "</td><td style='display:none;'  class='seven'>" + value.UTID + "</td><td style='display:none;'  class='nine'>" + value.PWD + "</td></tr>";
 
                     });
                     ro = ro + "</tbody></table>";
@@ -355,6 +359,7 @@ border-color: #d8dde1;
             document.getElementById("txtEmail").value = $(this).closest('tr').children('td.four').text();
             document.getElementById("txtPhone").value = $(this).closest('tr').children('td.five').text();
             document.getElementById("ContentPlaceHolder1_ddlRegion").value = $(this).closest('tr').children('td.six').text();
+            document.getElementById("ContentPlaceHolder1_ddlBranchID").value = $(this).closest('tr').children('td.sixOne').text();
             document.getElementById("ContentPlaceHolder1_ddlUserType").value = $(this).closest('tr').children('td.seven').text();
             document.getElementById("txtPassword").value = $(this).closest('tr').children('td.nine').text();
 
@@ -762,12 +767,28 @@ border-color: #d8dde1;
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
+<%--Added for Theme--%>
+ <div class="subheader">
+                            <h1 class="subheader-title">
+                                <i class='subheader-icon fal fa-edit'></i> Form User
+                            </h1>
+                        </div>
+
+                         <div class="panel-hdr">
+                                        <h2>
+                                            Form User 
+                                        </h2>
+
+                                        <div class="panel-toolbar">
+                                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                                        </div>
+                                    </div>
 
 
-
-
-
-
+<%--
+Added For Themme--%>
 
 
 
@@ -824,16 +845,66 @@ border-color: #d8dde1;
                              <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control"></asp:DropDownList>    
                         </div>
                       </div>
-                    
+                         <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Branch <span class="required"></span>
+                        </label>
+                        <%--<div class="col-md-6 col-sm-9 col-xs-12">
+                             <asp:DropDownList ID="ddlBranch" runat="server" CssClass="form-control"></asp:DropDownList>    
+                        </div>--%>
+<%--//Added for Verification of DD--%>
+                       <div class="col-md-6">
+                                <asp:DropDownList ID="ddlBranch" CssClass="custom-select is-invalid" runat="server" DataSourceID="SqlDataSource1" 
+                                            DataTextField="BranchTitle" DataValueField="BranchID" onchange="CheckDataLength();">
+                                </asp:DropDownList>
+                                <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Branch.
+                                                        </div>
 
+                                        <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+                                            ConnectionString="<%$ ConnectionStrings:Con %>" 
+                                            SelectCommand="SELECT '0' as [BranchID],'Select Branch' as [BranchTitle] FROM [BRANCH] union SELECT [BranchID], [BranchTitle] FROM [BRANCH] WHERE ([ISDELETE] = @ISDELETE)">
+                                            <SelectParameters>
+                                                <asp:Parameter DefaultValue="0" Name="ISDELETE" Type="Int32" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+
+                                
+                                    </div>
+
+
+                                  <%--  end of Verificaton--%>
+
+
+                                
+                      </div>
+                      <div class="form-group">
+                    <label class="control-label col-md-6 col-sm-6 col-xs-12">Switch</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="">
+                            <label>
+                              <input type="checkbox" class="js-switch" id="chkbase" Unchecked /> IsBase
+                            </label>
+                          </div>
+                          
+                        </div>
+                        </div>
+                 
 
 
                           <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtRegionName" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter User Name">  
-                            
+                          <input type="text" id="txtRegionName" required="required" class="form-control is-invalid col-md-7 col-xs-12" placeholder="Enter User Name" onchange="CheckDataLength();">  
+                            <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Name.
+                                                        </div>   
         
 
 
@@ -847,10 +918,15 @@ border-color: #d8dde1;
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Login ID <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtLoginID" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Login ID">  
+                          <input type="text" id="txtLoginID" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter Login ID" onchange="CheckDataLength();"/>  
                             
         
-
+           <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Login Id.
+                                                        </div>
 
                         </div>
                       </div>
@@ -863,8 +939,13 @@ border-color: #d8dde1;
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Password <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="password" id="txtPassword" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter  Password">  
-                            
+                          <input type="password" id="txtPassword" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter  Password" onchange="CheckDataLength();"/>  
+                               <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Password.
+                                                        </div>
         
 
 
@@ -878,10 +959,15 @@ border-color: #d8dde1;
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtEmail" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter User Email">  
+                          <input type="text" id="txtEmail" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter User Email" onchange="CheckDataLength();">  
                             
         
-
+           <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Email.
+                                                        </div>
 
                         </div>
                       </div>
@@ -899,9 +985,14 @@ border-color: #d8dde1;
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtPhone" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter User Phone">  
+                          <input type="text" id="txtPhone" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter User Phone" onchange="CheckDataLength();">  
                             
-        
+           <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Phone.
+                                                        </div>
 
 
                         </div>
@@ -1050,6 +1141,94 @@ border-color: #d8dde1;
     }).css({
         "color": "#C0C0C0"
     });
+
+
+
+
+    function CheckDataLength() {
+        var field = document.getElementById("ddlUserType").value;
+        if (field == "" || field == null) {
+            var text = document.getElementById('ddlUserType');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('ddlUserType');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+
+        var field = document.getElementById("ContentPlaceHolder1_ddlBranch").value;
+        if (field == "" || field == null || field == 0) {
+            var text = document.getElementById('ContentPlaceHolder1_ddlBranch');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('ContentPlaceHolder1_ddlBranch');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+
+        var field = document.getElementById("txtLoginID").value;
+        if (field == "" || field == null) {
+            var text = document.getElementById('txtLoginID');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('txtLoginID');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+
+        var field = document.getElementById("txtPassword").value;
+        if (field == "" || field == null) {
+            var text = document.getElementById('txtPassword');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('txtPassword');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+        var field = document.getElementById("txtEmail").value;
+        if (field == "" || field == null) {
+            var text = document.getElementById('txtEmail');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('txtEmail');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+
+        var field = document.getElementById("txtPhone").value;
+        if (field == "" || field == null) {
+            var text = document.getElementById('txtPhone');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('txtPhone');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+    }
 
 </script>
 

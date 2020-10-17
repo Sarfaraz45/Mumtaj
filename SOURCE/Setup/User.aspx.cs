@@ -22,35 +22,6 @@ public partial class Setup_User : System.Web.UI.Page
 
 
 
-       [WebMethod]
-    public static string LoadHead()
-    {
-
-        //string str = "select * from STP_Employee where IsDelete=0 order by FirstName";
-        string str = "select '0' AS CustomerTypeID, '--Select Customer Type ' AS CustomerTypeDesc from ITM_Customer_Type union SELECT CustomerTypeID, CustomerTypeDesc FROM ITM_Customer_Type WHERE ISDELETE = 0 order by CustomerTypeID ";
-
-        SqlConnection Con = new SqlConnection(ConfigurationManager.ConnectionStrings["Con"].ConnectionString);
-        SqlDataAdapter da = new SqlDataAdapter(str, Con);
-        DataTable dt = new DataTable();
-        da.Fill(dt);
-        List<GetRegionClass> RegionList = new List<GetRegionClass>();
-        RegionList.Clear();
-        if (dt.Rows.Count > 0)
-        {
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                GetRegionClass dbdc = new GetRegionClass();
-                dbdc.ID = dt.Rows[i]["CustomerTypeID"].ToString();
-                dbdc.Name = dt.Rows[i]["CustomerTypeDesc"].ToString();
-                RegionList.Insert(i, dbdc);
-            }
-
-        }
-
-        JavaScriptSerializer jser = new JavaScriptSerializer();
-
-
-        return jser.Serialize(RegionList);
 
 
 

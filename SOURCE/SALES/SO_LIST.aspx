@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
   <script src="../js/jquery-1.8.2.js" type="text/javascript"></script>
     <script src="../js/jquery.min.js" type="text/javascript"></script>
-      <link rel="stylesheet" media="screen, print" href="../css/notifications/toastr/toastr.css">
+      <link rel="stylesheet" media="screen, print" href="../css/notifications/toastr/toastr.css" />
          <script src="../js/notifications/toastr/toastr.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">

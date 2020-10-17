@@ -183,15 +183,7 @@
                         <div class="vd_input-wrapper" id="password-input-wrapper" > <span class="menu-icon"> <i class="fa fa-lock"></i> </span>
                           <input type="password" placeholder="Password" id="password" name="password" class="required" required>
                         </div>
-                         <div class="form-group">
-                                                    <label class="form-label" for="example-select">Branch </label>
-                                                     <select class="custom-select is-invalid" id="ddlBranch" onchange="CheckDataLength();" >
-                                                       
-                      
-                         
-                                                    </select>
-                                                  
-                                                </div>
+                        
                       </div>
                     </div>
                     <div id="vd_login-error" class="alert alert-danger hidden"><i class="fa fa-exclamation-circle fa-fw"></i> Please fill the necessary field </div>
