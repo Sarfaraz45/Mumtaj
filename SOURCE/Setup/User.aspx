@@ -865,7 +865,7 @@ Added For Themme--%>
 
                                         <asp:SqlDataSource ID="SqlDataSource1" runat="server"
                                             ConnectionString="<%$ ConnectionStrings:Con %>" 
-                                            SelectCommand="SELECT '0' as [BranchID],'Select Branch' as [BranchTitle] FROM [BRANCH] union SELECT [BranchID], [BranchTitle] FROM [BRANCH] WHERE ([ISDELETE] = @ISDELETE)">
+                                            SelectCommand="SELECT '0' as [BranchID],'Select Branch' as [BranchTitle] FROM [ITM_BRANCH] union SELECT [BranchID], [BranchTitle] FROM [ITM_BRANCH] WHERE ([ISDELETE] = @ISDELETE)">
                                             <SelectParameters>
                                                 <asp:Parameter DefaultValue="0" Name="ISDELETE" Type="Int32" />
                                             </SelectParameters>
