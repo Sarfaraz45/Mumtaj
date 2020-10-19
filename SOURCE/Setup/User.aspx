@@ -6,10 +6,14 @@
     <script src="../jquery.min.js"></script>--%>
 
        <script src="../js/jquery.min.js" type="text/javascript"></script>
-    <script src="..js//jquery-1.8.2.js" type="text/javascript"></script>
-         <link rel="stylesheet" media="screen, print" href="../css/notifications/toastr/toastr.css">
+    <script src="../js/jquery-1.8.2.js" type="text/javascript"></script>
+         <link rel="stylesheet" media="screen, print" href="../css/notifications/toastr/toastr.css"/>
          <script src="../js/notifications/toastr/toastr.js"></script>
-
+         </asp:Content>
+         
+          <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+          <main id="js-page-content" role="main" class="page-content">
     <style type="text/css">
         .highlight{
             background:#cfd1d3;
@@ -60,7 +64,6 @@ border-color: #d8dde1;
 
 
     </style>
-
 
       <script type="text/javascript">
 
@@ -187,8 +190,6 @@ border-color: #d8dde1;
           }
 
 </script>
-
-
 
     <script type="text/javascript">
 
@@ -359,10 +360,11 @@ border-color: #d8dde1;
             document.getElementById("txtEmail").value = $(this).closest('tr').children('td.four').text();
             document.getElementById("txtPhone").value = $(this).closest('tr').children('td.five').text();
             document.getElementById("ContentPlaceHolder1_ddlRegion").value = $(this).closest('tr').children('td.six').text();
-            document.getElementById("ContentPlaceHolder1_ddlBranchID").value = $(this).closest('tr').children('td.sixOne').text();
+            document.getElementById("ContentPlaceHolder1_ddlBranch").value = $(this).closest('tr').children('td.sixOne').text();
             document.getElementById("ContentPlaceHolder1_ddlUserType").value = $(this).closest('tr').children('td.seven').text();
             document.getElementById("txtPassword").value = $(this).closest('tr').children('td.nine').text();
 
+            
 
             $("#btnSave").text("Update");
             setFocusToTextBox();
@@ -379,6 +381,17 @@ border-color: #d8dde1;
                 $(this).addClass("highlight");
             else if (selected)
                 $(this).addClass("highlight");
+
+
+//            if ($("#btnSave").text() == "Save") {
+
+//                InsertRegion();
+//                CheckDataLength();
+//            }
+//            else if ($("#btnSave").text() == "Update") {
+//                UpdateRegion();
+//                CheckDataLength();
+//            }
         });
 
 
@@ -447,6 +460,8 @@ border-color: #d8dde1;
         };
 
 
+
+       
         function EnterEvent(e) {
             if (e.keyCode == 13) {
                 event.preventDefault();
@@ -472,6 +487,12 @@ border-color: #d8dde1;
             var Usertype = $("#ContentPlaceHolder1_ddlUserType").val();
             if (Usertype == "" || Usertype == null) {
                 document.getElementById("ContentPlaceHolder1_ddlUserType").style.border = "solid 1px red";
+                return false;
+            }
+
+            var Usertype = $("#ContentPlaceHolder1_ddlBranch").val();
+            if (Usertype == "" || Usertype == null) {
+                document.getElementById("ContentPlaceHolder1_ddlBranch").style.border = "solid 1px red";
                 return false;
             }
 
@@ -584,7 +605,11 @@ border-color: #d8dde1;
 
 
         function InsertRegion() {
-
+        var chk = "0";
+        if (document.getElementById("chkbase").checked == true)
+        {chk="1";
+        } else {chk="0";}
+         
             var dv = document.getElementById('fileList'); //fileList fileupload
             var divs = dv.getElementsByTagName('canvas');
             if (divs.length > 0) {
@@ -617,9 +642,11 @@ border-color: #d8dde1;
             var UUserID = localStorage.getItem("UserID");
             var ddl = $('#ContentPlaceHolder1_ddlRegion').val();
             var utid = $('#ContentPlaceHolder1_ddlUserType').val();
+            var utid1 = $('#ContentPlaceHolder1_ddlBranch').val();
             //alert(image);        
             //data: "{'DistrictName': '" + $('#txtRegionName').val() + "', 'LoginIDString': '" + $('#txtLoginID').val() + "', 'PasswordString': '" + $('#txtPassword').val() + "', 'EmailString': '" + $('#txtEmail').val() + "', 'PhoneString': '" + $('#txtPhone').val() + "', 'ManagerIDString': '" + ddl + "', 'UTIDString': '" + utid + "', 'image': '" + image + "'}",                
-            var dataToSend = JSON.stringify({ 'DistrictName': $('#txtRegionName').val(), 'LoginIDString': $('#txtLoginID').val(), 'PasswordString': $("#txtPassword").val(), 'EmailString': $('#txtEmail').val(), 'PhoneString': $('#txtPhone').val(), 'image': image, 'ManagerIDString': ddl, 'UTIDString': utid, 'UUserID': UUserID });
+            var dataToSend = JSON.stringify({ 'DistrictName': $('#txtRegionName').val(), 'LoginIDString': $('#txtLoginID').val(), 'PasswordString': $("#txtPassword").val(), 'EmailString': $('#txtEmail').val(), 'PhoneString': $('#txtPhone').val(), 'image': image, 'ManagerIDString':  ddl, 'UTIDString': utid , 'BranchString': utid1, 'UUserID': UUserID, 'chk': chk });
+            
             var results = $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -653,12 +680,18 @@ border-color: #d8dde1;
 
 
         function UpdateRegion() {
-
+        var chk = "0";
+        if (document.getElementById("chkbase").checked == true)
+        {chk="1";
+        } else {chk="0";}
+         
           
             var UUserID = localStorage.getItem("UserID");
             var ddl = $('#ContentPlaceHolder1_ddlRegion').val();
             var utid = $('#ContentPlaceHolder1_ddlUserType').val();
-            var dataToSend = JSON.stringify({ 'DistrictID': $('#ContentPlaceHolder1_hdnid').val(), 'DistrictName': $('#txtRegionName').val(), 'LoginIDString': $('#txtLoginID').val(), 'PasswordString': $("#txtPassword").val(), 'EmailString': $('#txtEmail').val(), 'PhoneString': $('#txtPhone').val(), 'ManagerIDString': ddl, 'UTIDString': utid, 'UUserID': UUserID });
+            var utid1 = $('#ContentPlaceHolder1_ddlBranch').val();
+            var dataToSend = JSON.stringify({ 'DistrictID': $('#ContentPlaceHolder1_hdnid').val(), 'DistrictName': $('#txtRegionName').val(), 'LoginIDString': $('#txtLoginID').val(), 'PasswordString': $("#txtPassword").val(), 'EmailString': $('#txtEmail').val(), 'PhoneString': $('#txtPhone').val(), 'ManagerIDString': ddl, 'UTIDString': utid, 'BranchString': utid1, 'UUserID': UUserID, 'chk': chk });
+            alert(dataToSend);
             var results = $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -747,8 +780,10 @@ border-color: #d8dde1;
             document.getElementById("txtPhone").style.border = "solid 1px #ccd0d4";
             document.getElementById("ContentPlaceHolder1_ddlRegion").style.border = "solid 1px #ccd0d4";
             document.getElementById("ContentPlaceHolder1_ddlUserType").style.border = "solid 1px #ccd0d4";
+            document.getElementById("ContentPlaceHolder1_ddlBranch").style.border = "solid 1px #ccd0d4";
             LoadRegionCombo();
             LoadUTIDCombo();
+//            LoadUTIDCombo1();
             setFocusToTextBox();
 
         }
@@ -757,26 +792,19 @@ border-color: #d8dde1;
     </script>
 
 
-
-
-</asp:Content>
-
-
-
-
-
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
-<%--Added for Theme--%>
- <div class="subheader">
+  <div class="subheader">
                             <h1 class="subheader-title">
-                                <i class='subheader-icon fal fa-edit'></i> Form User
+                                <i class='subheader-icon fal fa-edit'></i> Add User
                             </h1>
                         </div>
+<%--Added for Theme--%>
+               <div class="row">
+                            <div class="col-xl-12">
+                                <div id="panel-1" class="panel">
 
                          <div class="panel-hdr">
                                         <h2>
-                                            Form User 
+                                            User Control    
                                         </h2>
 
                                         <div class="panel-toolbar">
@@ -785,31 +813,21 @@ border-color: #d8dde1;
                                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
                                         </div>
                                     </div>
-
+<div class="panel-container show">
+                                        <div class="panel-content">      
+                                      
 
 <%--
 Added For Themme--%>
 
 
-
-
-
-
-
-    
- 
-    <div class="row">
-              <div class="col-md-6">
-                <div class="panel widget">
-                  <div class="panel-heading vd_bg-grey">
-                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-bar-chart-o"></i> </span> Form User </h3>
-                  </div>
-                  <div class="panel-body">
-                    <form class="form-horizontal" action="#" role="form">
+                <form>
+                    <%--<form class="form-horizontal" action="#" role="form">--%>
 
 
                         
-                            
+                      <div class="row">  
+                      <div class="col-md-6" style="display:none">    
                       <div class="form-group">
                         <div class="col-lg-12 col-md-12  col-sm-12  col-xs-12">
                                           
@@ -823,36 +841,50 @@ Added For Themme--%>
                                             <div class="row" id="fileList"></div>
                                 </div>
                       </div>
-                    
+                    </div>
 
 
-
-                          <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">User Type <span class="required"></span>
+                    <div class="col-md-6"> 
+                          <div class="form-group" style="display:none">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" > User Type <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-9 col-xs-12">
-                             <asp:DropDownList ID="ddlUserType" runat="server" CssClass="form-control"></asp:DropDownList>    
+                             <asp:DropDownList ID="ddlUserType" runat="server" CssClass="form-control" ></asp:DropDownList>    
                         </div>
-                      </div>
+                       <%--   <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid User.
+                                                        </div>
+                      </div>--%>
                     
 
                         
 
-                          <div class="form-group">
+                          <div class="form-group" style="display:none">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Manager <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-9 col-xs-12">
-                             <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control"></asp:DropDownList>    
+                             <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control" ></asp:DropDownList>    
                         </div>
+                          <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                          Please provide a valid Manager.
+                                                        </div>
                       </div>
+                      <%--CHanged made form style--%>
+                 </div>
+                 </div>
+                 </div>
+                  <div class="row">
+                                                  <div class="col-md-4">
                          <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Branch <span class="required"></span>
+                        <label>Branch <span class="required"></span>
                         </label>
-                        <%--<div class="col-md-6 col-sm-9 col-xs-12">
-                             <asp:DropDownList ID="ddlBranch" runat="server" CssClass="form-control"></asp:DropDownList>    
-                        </div>--%>
-<%--//Added for Verification of DD--%>
-                       <div class="col-md-6">
+                        
                                 <asp:DropDownList ID="ddlBranch" CssClass="custom-select is-invalid" runat="server" DataSourceID="SqlDataSource1" 
                                             DataTextField="BranchTitle" DataValueField="BranchID" onchange="CheckDataLength();">
                                 </asp:DropDownList>
@@ -876,29 +908,14 @@ Added For Themme--%>
 
 
                                   <%--  end of Verificaton--%>
-
-
-                                
-                      </div>
-                      <div class="form-group">
-                    <label class="control-label col-md-6 col-sm-6 col-xs-12">Switch</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" id="chkbase" Unchecked /> IsBase
-                            </label>
-                          </div>
-                          
-                        </div>
-                        </div>
-                 
-
-
-                          <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required"></span>
+   </div>
+                        
+                        <div class="col-md-4">
+                        <div class="form-group">
+                        <label class="control-label">Name <span class="required"></span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtRegionName" required="required" class="form-control is-invalid col-md-7 col-xs-12" placeholder="Enter User Name" onchange="CheckDataLength();">  
+                        
+                          <input type="text" id="txtRegionName" required="required" class="form-control is-invalid col-md-12 col-xs-12" placeholder="Enter User Name" onchange="CheckDataLength();"/>  
                             <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
@@ -908,17 +925,15 @@ Added For Themme--%>
         
 
 
-                        </div>
+                        
                       </div>
-                    
-
-
-
-                          <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Login ID <span class="required"></span>
+                        </div>
+                          <div class="col-md-4">                        
+                            <div class="form-group">
+                        <label class="form-label">Login ID <span class="required"></span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtLoginID" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter Login ID" onchange="CheckDataLength();"/>  
+                        
+                          <input type="text" id="txtLoginID" required="required" class="form-control is-invalid col-md-12 col-xs-12"  placeholder="Enter Login ID" onchange="CheckDataLength();"/>  
                             
         
            <div class="valid-feedback">
@@ -928,18 +943,20 @@ Added For Themme--%>
                                                           Please provide a valid Login Id.
                                                         </div>
 
-                        </div>
-                      </div>
-                    
-
-
-
+                      </div></div>
+                     
+                              
+  </div>              
+                 <div class="row">
+              
+                   
+                      <div class="col-md-4">
 
                           <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Password <span class="required"></span>
+                        <label class="form-label">Password <span class="required"></span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="password" id="txtPassword" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter  Password" onchange="CheckDataLength();"/>  
+                        
+                          <input type="password" id="txtPassword" required="required" class="form-control is-invalid "  placeholder="Enter  Password" onchange="CheckDataLength();"/>  
                                <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
@@ -949,17 +966,13 @@ Added For Themme--%>
         
 
 
-                        </div>
                       </div>
-                    
-
-
-
-                          <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required"></span>
+                     </div>
+                                           <div class="col-md-4">  <div class="form-group">
+                        <label class="form-label">Email <span class="required"></span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtEmail" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter User Email" onchange="CheckDataLength();">  
+                        
+                          <input type="text" id="txtEmail" required="required" class="form-control is-valid"  placeholder="Enter User Email" onchange="CheckDataLength();"/>  
                             
         
            <div class="valid-feedback">
@@ -969,23 +982,12 @@ Added For Themme--%>
                                                           Please provide a valid Email.
                                                         </div>
 
-                        </div>
-                      </div>
-
-
-
-
-
-
-
-
-                        
-
-                          <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone <span class="required"></span>
+                        </div></div>
+                                                                 <div class="col-md-4">        <div class="form-group">
+                        <label class="form-label">Phone <span class="required"></span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="txtPhone" required="required" class="form-control is-invalid col-md-7 col-xs-12"  placeholder="Enter User Phone" onchange="CheckDataLength();">  
+                        <div class="col-md-12">
+                          <input type="text" id="txtPhone"  class="form-control is-valid"  placeholder="Enter User Phone" onchange="CheckDataLength();">  
                             
            <div class="valid-feedback">
                                                             Looks good!
@@ -996,53 +998,50 @@ Added For Themme--%>
 
 
                         </div>
-                      </div>
+                      </div></div>
+                    </div>
+                    <div class="row"> <div class="col-md-12"><div class="form-group">
                     
+                        
+                         
+                            <label>
+                              <input type="checkbox" class="control-label" id="chkbase" Unchecked /> Admin User
+                            </label>
+                         
+                          
+                        
+                        </div></div>
+</div>
+    <div class="row"> <div class="col-md-12"><div class="form-group">
+                               <button type="button" id="btnSave" class="btn btn-success waves-effect waves-themed" onclick="SaveData();">Save</button>
+                                             <button type="button" class="btn btn-danger waves-effect waves-themed" onclick="DeleteRegion();">Delete</button>
+                                             <button type="button" id="btnClear" class="btn btn-warning waves-effect waves-themed" onclick="Clear();">Cancel</button>
+                </div></div></div>
 
-
-
-
-
-                   
-
-
-
-
-
-
-
+                    <div class="row">
+                    
                      
                      
-                      <div class="form-group form-actions">
-                        <div class="col-sm-4"> </div>
-                        <div class="col-sm-7">
-                           <button type="button" class="btn vd_btn vd_bg-green vd_white" id="btnSave" onclick="SaveData();">Save</button>
+     
+                                                                               <asp:HiddenField ID="hdnid" runat="server" />
+</div>
 
-
-                          <button class="btn btn-default" type="button" onclick="Clear();">Cancel</button>
-                          <button class="btn btn-danger" type="button" onclick="DeleteRegion();">Delete</button>
-
-
-
-                              
-
-
-                              
-
-
-
-
-
-                        </div>
-                      </div>
-                                                                                <asp:HiddenField ID="hdnid" runat="server" />
-
-                    </form>
+                    
+    </form>                   
                   </div>
                 </div>
+               
                 <!-- Panel Widget --> 
               </div>
-              <div class="col-md-6">
+              </div>
+             
+              <!-- col-md-12 --> 
+           
+               
+
+             <%--  //Panel Widget Moved--%> 
+
+                <div class="col-md-12">
                 <div class="panel widget">
                   <div class="panel-heading vd_bg-grey">
                     <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> User </h3>
@@ -1077,9 +1076,8 @@ Added For Themme--%>
                 <!-- Panel Widget -->
                
               </div>
-              <!-- col-md-12 --> 
-            </div>
-               
+
+             <%-- //End Panel--%>
 
       <script type="text/javascript">
           var pager = new Pager('tablepaging', 8);
@@ -1146,20 +1144,20 @@ Added For Themme--%>
 
 
     function CheckDataLength() {
-        var field = document.getElementById("ddlUserType").value;
+        var field = document.getElementById("ContentPlaceHolder1_ddlUserType").value;
         if (field == "" || field == null) {
-            var text = document.getElementById('ddlUserType');
+            var text = document.getElementById('ContentPlaceHolder1_ddlUserType');
             text.classList.remove('is-valid');
             text.classList.add('is-invalid');
         }
         else {
 
-            var text = document.getElementById('ddlUserType');
+            var text = document.getElementById('ContentPlaceHolder1_ddlUserType');
             text.classList.remove('is-invalid');
             text.classList.add('is-valid');
 
         }
-
+        {
         var field = document.getElementById("ContentPlaceHolder1_ddlBranch").value;
         if (field == "" || field == null || field == 0) {
             var text = document.getElementById('ContentPlaceHolder1_ddlBranch');
@@ -1173,7 +1171,22 @@ Added For Themme--%>
             text.classList.add('is-valid');
 
         }
+        {
 
+        var field = document.getElementById("ContentPlaceHolder1_ddlRegion").value;
+        if (field == "" || field == null || field == 0) {
+            var text = document.getElementById('ContentPlaceHolder1_ddlRegion');
+            text.classList.remove('is-valid');
+            text.classList.add('is-invalid');
+        }
+        else {
+
+            var text = document.getElementById('ContentPlaceHolder1_ddlRegion');
+            text.classList.remove('is-invalid');
+            text.classList.add('is-valid');
+
+        }
+        {
         var field = document.getElementById("txtLoginID").value;
         if (field == "" || field == null) {
             var text = document.getElementById('txtLoginID');
@@ -1187,7 +1200,7 @@ Added For Themme--%>
             text.classList.add('is-valid');
 
         }
-
+        {
         var field = document.getElementById("txtPassword").value;
         if (field == "" || field == null) {
             var text = document.getElementById('txtPassword');
@@ -1199,42 +1212,22 @@ Added For Themme--%>
             var text = document.getElementById('txtPassword');
             text.classList.remove('is-invalid');
             text.classList.add('is-valid');
-
+            
         }
-        var field = document.getElementById("txtEmail").value;
-        if (field == "" || field == null) {
-            var text = document.getElementById('txtEmail');
-            text.classList.remove('is-valid');
-            text.classList.add('is-invalid');
-        }
-        else {
+        
+       
 
-            var text = document.getElementById('txtEmail');
-            text.classList.remove('is-invalid');
-            text.classList.add('is-valid');
-
-        }
-
-        var field = document.getElementById("txtPhone").value;
-        if (field == "" || field == null) {
-            var text = document.getElementById('txtPhone');
-            text.classList.remove('is-valid');
-            text.classList.add('is-invalid');
-        }
-        else {
-
-            var text = document.getElementById('txtPhone');
-            text.classList.remove('is-invalid');
-            text.classList.add('is-valid');
-
-        }
-    }
+       
+    
+    
 
 </script>
 
 
 
 
+
+</div>
 
 
 

@@ -600,4 +600,9 @@ public class AACommon
         return ds;
     }
 
+
+    public static string Execute(string p, SqlConnection Conn, SqlParameter UserID, SqlParameter UserName, SqlParameter loginID, SqlParameter Password, SqlParameter email, SqlParameter Phone, object ImageID, SqlParameter ManagerID, SqlParameter UTID, SqlParameter BranchID, SqlParameter MODIFYBY, SqlParameter IsAdmin)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -27,7 +27,7 @@ public partial class Setup_User : System.Web.UI.Page
 
 
     [WebMethod]
-    public static string InsertRegion(string DistrictName, string LoginIDString, string PasswordString, string EmailString, string PhoneString, string ManagerIDString, string UTIDString, string image, string UUserID)
+    public static string InsertRegion(string DistrictName, string LoginIDString, string PasswordString, string EmailString, string PhoneString, string image, string ManagerIDString,string UTIDString, string BranchString, string UUserID, string chk)
     {
 
         string retMessage = string.Empty;
@@ -97,9 +97,11 @@ public partial class Setup_User : System.Web.UI.Page
         SqlParameter Phone = new SqlParameter("@Phone", PhoneString);
         SqlParameter Picture = new SqlParameter("@Picture", ImageID);
         SqlParameter ManagerID = new SqlParameter("@ManagerID", ManagerIDString);
+        SqlParameter BranchID = new SqlParameter("@BranchID", BranchString);
         SqlParameter UTID = new SqlParameter("@UTID", UTIDString);
         SqlParameter CREATEBY = new SqlParameter("@CREATEBY", UUserID);
-        msg = AACommon.Execute("USER_INSERT", Conn, UserID, UserName, loginID, Password, email, Phone, Picture, ManagerID, UTID, CREATEBY);
+        SqlParameter IsAdmin = new SqlParameter("@IsAdmin", chk);
+        msg = AACommon.Execute("USER_INSERT", Conn, UserID, UserName, loginID, Password, email, Phone, Picture, ManagerID,UTID, BranchID, CREATEBY, IsAdmin);
 
 
         if (msg == "Record Saved Successfully")
@@ -117,7 +119,7 @@ public partial class Setup_User : System.Web.UI.Page
 
 
     [WebMethod]
-    public static string UpdateRegion(string DistrictID, string DistrictName, string LoginIDString, string PasswordString, string EmailString, string PhoneString, string ManagerIDString, string UTIDString, string UUserID)
+    public static string UpdateRegion(string DistrictID, string DistrictName, string LoginIDString, string PasswordString, string EmailString, string PhoneString, string ManagerIDString, string UTIDString, string BranchString, string UUserID, string chk)
     {
         string retMessage = string.Empty;
         string msg = "";
@@ -129,10 +131,13 @@ public partial class Setup_User : System.Web.UI.Page
         SqlParameter Password = new SqlParameter("@Password", PasswordString);
         SqlParameter email = new SqlParameter("@email", EmailString);
         SqlParameter Phone = new SqlParameter("@Phone", PhoneString);
+        
         SqlParameter ManagerID = new SqlParameter("@ManagerID", ManagerIDString);
+        SqlParameter BranchID = new SqlParameter("@BranchID", BranchString);
         SqlParameter UTID = new SqlParameter("@UTID", UTIDString);
         SqlParameter MODIFYBY = new SqlParameter("@MODIFYBY", UUserID);
-        msg = AACommon.Execute("USER_UPDATE", Conn, UserID, UserName, loginID, Password, email, Phone, ManagerID, UTID, MODIFYBY);
+        SqlParameter IsAdmin = new SqlParameter("@IsAdmin", chk);
+        msg = AACommon.Execute("USER_UPDATE", Conn, UserID, UserName, loginID, Password, email, Phone, ManagerID, UTID, BranchID, MODIFYBY, IsAdmin);
 
 
         if (msg == "Record Saved Successfully")
@@ -203,6 +208,7 @@ public partial class Setup_User : System.Web.UI.Page
                 dbdc.Phone = ds.Tables[0].Rows[i]["Phone"].ToString();
                 dbdc.Picture = ds.Tables[0].Rows[i]["Picture"].ToString();
                 dbdc.Manager = ds.Tables[0].Rows[i]["ManagerID"].ToString();
+                dbdc.BranchID = ds.Tables[0].Rows[i]["BranchID"].ToString();
                 dbdc.UTID = ds.Tables[0].Rows[i]["UTID"].ToString();
                 string pwd = Encryption.Decrypt(ds.Tables[0].Rows[i]["Password"].ToString());
                 dbdc.PWD = pwd;
@@ -234,6 +240,10 @@ public partial class Setup_User : System.Web.UI.Page
         public string PWD { get; set; }
 
 
+
+        public string UTID1 { get; set; }
+
+        public string BranchID { get; set; }
     }
 
     [WebMethod]
@@ -354,10 +364,40 @@ public partial class Setup_User : System.Web.UI.Page
     }
 
 
+    //[WebMethod]
+    //public static string LoadRegionCombo1()
+    //{
+    //    SqlConnection Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Con"].ConnectionString);
+    //    DataSet ds = AACommon.ReturnDatasetBySPWithoutParameter("USER_GET_BY_Branch", Conn);
+    //    List<GetRegionClass> RegionList = new List<GetRegionClass>();
+    //    RegionList.Clear();
+    //    if (ds.Tables[0].Rows.Count > 0)
+    //    {
+    //        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+    //        {
+    //            GetRegionClass dbdc = new GetRegionClass();
+
+    //            dbdc.ID = ds.Tables[0].Rows[i][1].ToString();
+    //            dbdc.Name = ds.Tables[0].Rows[i][2].ToString();
+    //            RegionList.Insert(i, dbdc);
+    //        }
+
+    //    }
+
+    //    JavaScriptSerializer jser = new JavaScriptSerializer();
+
+
+    //    return jser.Serialize(RegionList);
+    //}
 
 
 
 
 
 
+
+
+    public static object UTTD1 { get; set; }
+
+    public static object ImageID { get; set; }
 }
