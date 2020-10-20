@@ -238,7 +238,7 @@ border-color: #d8dde1;
 
 
         function LoadRegion() {
-            setFocusToTextBox();
+       setFocusToTextBox();
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -364,7 +364,7 @@ border-color: #d8dde1;
             document.getElementById("ContentPlaceHolder1_ddlUserType").value = $(this).closest('tr').children('td.seven').text();
             document.getElementById("txtPassword").value = $(this).closest('tr').children('td.nine').text();
 
-            
+
 
             $("#btnSave").text("Update");
             setFocusToTextBox();
@@ -373,6 +373,7 @@ border-color: #d8dde1;
             document.getElementById("txtPassword").style.border = "solid 1px #ccd0d4";
             document.getElementById("ctl00_ContentPlaceHolder1_ddlCombo").style.border = "solid 1px #ccd0d4";
             document.getElementById("ContentPlaceHolder1_ddlUserType").style.border = "solid 1px #ccd0d4";
+            document.getElementById("ContentPlaceHolder1_ddlBranch").value = "0";
             /// For Getting Grid Value End
             /// For Getting Grid Value End
 
@@ -383,15 +384,15 @@ border-color: #d8dde1;
                 $(this).addClass("highlight");
 
 
-//            if ($("#btnSave").text() == "Save") {
+            //            if ($("#btnSave").text() == "Save") {
 
-//                InsertRegion();
-//                CheckDataLength();
-//            }
-//            else if ($("#btnSave").text() == "Update") {
-//                UpdateRegion();
-//                CheckDataLength();
-//            }
+            //                InsertRegion();
+            //                CheckDataLength();
+            //            }
+            //            else if ($("#btnSave").text() == "Update") {
+            //                UpdateRegion();
+            //                CheckDataLength();
+            //            }
         });
 
 
@@ -490,8 +491,8 @@ border-color: #d8dde1;
                 return false;
             }
 
-            var Usertype = $("#ContentPlaceHolder1_ddlBranch").val();
-            if (Usertype == "" || Usertype == null) {
+            var BranchType = $("#ContentPlaceHolder1_ddlBranch").val();
+            if (BranchType == "" || Usertype == null) {
                 document.getElementById("ContentPlaceHolder1_ddlBranch").style.border = "solid 1px red";
                 return false;
             }
@@ -691,7 +692,7 @@ border-color: #d8dde1;
             var utid = $('#ContentPlaceHolder1_ddlUserType').val();
             var utid1 = $('#ContentPlaceHolder1_ddlBranch').val();
             var dataToSend = JSON.stringify({ 'DistrictID': $('#ContentPlaceHolder1_hdnid').val(), 'DistrictName': $('#txtRegionName').val(), 'LoginIDString': $('#txtLoginID').val(), 'PasswordString': $("#txtPassword").val(), 'EmailString': $('#txtEmail').val(), 'PhoneString': $('#txtPhone').val(), 'ManagerIDString': ddl, 'UTIDString': utid, 'BranchString': utid1, 'UUserID': UUserID, 'chk': chk });
-            alert(dataToSend);
+            
             var results = $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -743,7 +744,7 @@ border-color: #d8dde1;
                         $("#search").val('');
                         LoadRegion();
                         Clear();
-                        setFocusToTextBox();
+                      setFocusToTextBox();
                         $("#msgbody_delete").text("Record has been deleted successfully.");
                         $("#confirm_delete").hide();
 
@@ -766,21 +767,24 @@ border-color: #d8dde1;
         function Clear() {
             $('#ContentPlaceHolder1_hdnid').val('');
             $('#ContentPlaceHolder1_hdntitle').val('');
+            document.getElementById("ContentPlaceHolder1_ddlBranch").value = "0";
+//            $('#ddlBranch').val('');
             $('#txtRegionName').val('');
             $('#txtLoginID').val('');
             $('#txtPassword').val('');
             $('#txtEmail').val('');
             $('#txtPhone').val('');
+            CheckDataLength();
             $("#btnSave").text("Save");
-            $("#tablepaging tr").removeClass("highlight");
-            document.getElementById("txtRegionName").style.border = "solid 1px #ccd0d4";
-            document.getElementById("txtLoginID").style.border = "solid 1px #ccd0d4";
-            document.getElementById("txtPassword").style.border = "solid 1px #ccd0d4";
-            document.getElementById("txtEmail").style.border = "solid 1px #ccd0d4";
-            document.getElementById("txtPhone").style.border = "solid 1px #ccd0d4";
-            document.getElementById("ContentPlaceHolder1_ddlRegion").style.border = "solid 1px #ccd0d4";
-            document.getElementById("ContentPlaceHolder1_ddlUserType").style.border = "solid 1px #ccd0d4";
-            document.getElementById("ContentPlaceHolder1_ddlBranch").style.border = "solid 1px #ccd0d4";
+//            $("#tablepaging tr").removeClass("highlight");
+//            document.getElementById("txtRegionName").style.border = "solid 1px #ccd0d4";
+//            document.getElementById("txtLoginID").style.border = "solid 1px #ccd0d4";
+//            document.getElementById("txtPassword").style.border = "solid 1px #ccd0d4";
+//            document.getElementById("txtEmail").style.border = "solid 1px #ccd0d4";
+//            document.getElementById("txtPhone").style.border = "solid 1px #ccd0d4";
+//            document.getElementById("ContentPlaceHolder1_ddlRegion").style.border = "solid 1px #ccd0d4";
+//            document.getElementById("ContentPlaceHolder1_ddlUserType").style.border = "solid 1px #ccd0d4";
+//           document.getElementById("ContentPlaceHolder1_ddlBranch").style.border = "solid 1px #ccd0d4";
             LoadRegionCombo();
             LoadUTIDCombo();
 //            LoadUTIDCombo1();
@@ -915,7 +919,7 @@ Added For Themme--%>
                         <label class="control-label">Name <span class="required"></span>
                         </label>
                         
-                          <input type="text" id="txtRegionName" required="required" class="form-control is-invalid col-md-12 col-xs-12" placeholder="Enter User Name" onchange="CheckDataLength();"/>  
+                          <input type="text" id="txtRegionName" required="required" class="form-control is-invalid col-md-12 col-xs-12" placeholder="Enter User Name" onkeyup="CheckDataLengthV2(this)"/>  
                             <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
@@ -933,7 +937,7 @@ Added For Themme--%>
                         <label class="form-label">Login ID <span class="required"></span>
                         </label>
                         
-                          <input type="text" id="txtLoginID" required="required" class="form-control is-invalid col-md-12 col-xs-12"  placeholder="Enter Login ID" onchange="CheckDataLength();"/>  
+                          <input type="text" id="txtLoginID" required="required" class="form-control is-invalid col-md-12 col-xs-12"  placeholder="Enter Login ID" onkeyup="CheckDataLengthV2(this)"/>  
                             
         
            <div class="valid-feedback">
@@ -956,7 +960,7 @@ Added For Themme--%>
                         <label class="form-label">Password <span class="required"></span>
                         </label>
                         
-                          <input type="password" id="txtPassword" required="required" class="form-control is-invalid "  placeholder="Enter  Password" onchange="CheckDataLength();"/>  
+                          <input type="password" id="txtPassword"  autocomplete="off" required="required" class="form-control is-invalid "  placeholder="Enter  Password" onkeyup="CheckDataLengthV2(this)"/>  
                                <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
@@ -972,7 +976,7 @@ Added For Themme--%>
                         <label class="form-label">Email <span class="required"></span>
                         </label>
                         
-                          <input type="text" id="txtEmail" required="required" class="form-control is-valid"  placeholder="Enter User Email" onchange="CheckDataLength();"/>  
+                          <input type="text" id="txtEmail" required="required" class="form-control is-valid"  placeholder="Enter User Email" />  
                             
         
            <div class="valid-feedback">
@@ -987,7 +991,7 @@ Added For Themme--%>
                         <label class="form-label">Phone <span class="required"></span>
                         </label>
                         <div class="col-md-12">
-                          <input type="text" id="txtPhone"  class="form-control is-valid"  placeholder="Enter User Phone" onchange="CheckDataLength();">  
+                          <input type=number id="txtPhone"  class="form-control is-valid"  placeholder="Enter User Phone" />  
                             
            <div class="valid-feedback">
                                                             Looks good!
@@ -1140,24 +1144,27 @@ Added For Themme--%>
         "color": "#C0C0C0"
     });
 
-
-
-
-    function CheckDataLength() {
-        var field = document.getElementById("ContentPlaceHolder1_ddlUserType").value;
+    function CheckDataLengthV2(a) {
+        // alert("hello");
+        var field = document.getElementById(a.id).value;
         if (field == "" || field == null) {
-            var text = document.getElementById('ContentPlaceHolder1_ddlUserType');
+            var text = document.getElementById(a.id);
             text.classList.remove('is-valid');
             text.classList.add('is-invalid');
         }
         else {
 
-            var text = document.getElementById('ContentPlaceHolder1_ddlUserType');
+            var text = document.getElementById(a.id);
             text.classList.remove('is-invalid');
             text.classList.add('is-valid');
 
         }
-        {
+    }
+
+    function CheckDataLength() {
+
+
+
         var field = document.getElementById("ContentPlaceHolder1_ddlBranch").value;
         if (field == "" || field == null || field == 0) {
             var text = document.getElementById('ContentPlaceHolder1_ddlBranch');
@@ -1171,50 +1178,50 @@ Added For Themme--%>
             text.classList.add('is-valid');
 
         }
-        {
+    }
 
-        var field = document.getElementById("ContentPlaceHolder1_ddlRegion").value;
-        if (field == "" || field == null || field == 0) {
-            var text = document.getElementById('ContentPlaceHolder1_ddlRegion');
-            text.classList.remove('is-valid');
-            text.classList.add('is-invalid');
-        }
-        else {
+//        var field = document.getElementById("ContentPlaceHolder1_ddlRegion").value;
+//        if (field == "" || field == null || field == 0) {
+//            var text = document.getElementById('ContentPlaceHolder1_ddlRegion');
+//            text.classList.remove('is-valid');
+//            text.classList.add('is-invalid');
+//        }
+//        else {
 
-            var text = document.getElementById('ContentPlaceHolder1_ddlRegion');
-            text.classList.remove('is-invalid');
-            text.classList.add('is-valid');
+//            var text = document.getElementById('ContentPlaceHolder1_ddlRegion');
+//            text.classList.remove('is-invalid');
+//            text.classList.add('is-valid');
 
-        }
-        {
-        var field = document.getElementById("txtLoginID").value;
-        if (field == "" || field == null) {
-            var text = document.getElementById('txtLoginID');
-            text.classList.remove('is-valid');
-            text.classList.add('is-invalid');
-        }
-        else {
+//        }
+//        {
+//        var field = document.getElementById("txtLoginID").value;
+//        if (field == "" || field == null) {
+//            var text = document.getElementById('txtLoginID');
+//            text.classList.remove('is-valid');
+//            text.classList.add('is-invalid');
+//        }
+//        else {
 
-            var text = document.getElementById('txtLoginID');
-            text.classList.remove('is-invalid');
-            text.classList.add('is-valid');
+//            var text = document.getElementById('txtLoginID');
+//            text.classList.remove('is-invalid');
+//            text.classList.add('is-valid');
 
-        }
-        {
-        var field = document.getElementById("txtPassword").value;
-        if (field == "" || field == null) {
-            var text = document.getElementById('txtPassword');
-            text.classList.remove('is-valid');
-            text.classList.add('is-invalid');
-        }
-        else {
+//        }
+//        {
+//        var field = document.getElementById("txtPassword").value;
+//        if (field == "" || field == null) {
+//            var text = document.getElementById('txtPassword');
+//            text.classList.remove('is-valid');
+//            text.classList.add('is-invalid');
+//        }
+//        else {
 
-            var text = document.getElementById('txtPassword');
-            text.classList.remove('is-invalid');
-            text.classList.add('is-valid');
-            
-        }
-        
+//            var text = document.getElementById('txtPassword');
+//            text.classList.remove('is-invalid');
+//            text.classList.add('is-valid');
+//            
+//        }
+//        
        
 
        
