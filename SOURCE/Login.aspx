@@ -15,6 +15,7 @@
 	<link href="loginPage/css/style2.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="loginPage/css/green.css" />
 </head>
+
 <body class="double-diagonal dark auth-page">
  <script>
      function Login() {
@@ -68,7 +69,7 @@
     
        <div class="preloader" id="preloader">
         <div class="logopreloader">
-            <img src="loginPage/img/wastenable.png" alt="logo-black">
+            <img src="loginPage/img/PayPro.png" alt="logo-black">
         </div>
         <div class="loader" id="loader"></div>
     </div>
@@ -79,7 +80,7 @@
         <div class="container-fluid user-auth">
 			<div class="hidden-xs col-sm-7 col-md-7 col-lg-7">
 			
-				<div id="carousel-testimonials" class="carousel slide carousel-fade" data-ride="carousel">
+				<div id="carousel-testimonials"  class="carousel slide carousel-fade" data-ride="carousel">
 				
 					<ol class="carousel-indicators">
 					   
@@ -107,34 +108,60 @@
 			<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id="particles-js" >
 				
 				<a class="visible-xs" href="#">
-					<img id="logo-mobile-light" class="img-responsive mobile-logo white-l" src="loginPage/img/wastenable.png" alt="logo">
+					<img id="logo-mobile-light" class="img-responsive mobile-logo white-l" src="loginPage/img/Logo.png" alt="logo">
 			
 				</a>
 				
 				<div class="form-container">
-					<div style="background-color:#2D4B8B;">
+					<div style="background-color:#fff;">
 						
 					<div class="text-center top-text">
-						<h1><span>user</span> login</h1>
-						<p>great to have you back!</p>
+                    
+						
+						<img src="loginPage/img/PayPro.png" alt="logo-black"> 
 					</div>
-				
+				<br />
 						<form class="custom-form">
 						
 							<div class="form-group">
-								<input class="form-control" name="email" id="email" placeholder="USERNAME" type="text" required autocomplete="off"  onkeypress="return EnterEvent(event)" />
+                                <label style="color:black" class="form-label" for="example-palaceholder">Email </label>
+								<input class="form-control" name="email" id="email" placeholder="example@aqm.com.pk" type="email" required autocomplete="off"  onkeypress="return EnterEvent(event)" />
 							</div>
 						
 							<div class="form-group">
+                            <label style="color:black" class="form-label" for="example-palaceholder">Password </label>
 								<input class="form-control" name="password" id="password" placeholder="PASSWORD" type="password" required autocomplete="off"  onkeypress="return EnterEvent(event)" />
 							</div>
 							
 							<div class="form-group">
-					<button class="custom-button login" id="BtnLogin" onclick="Login();" type="button">login</button>
+					<button style="background-color:#60BF69"class="btn btn-Primary btn-lg btn-block login" id="BtnLogin" onclick="Login();" type="button">Sign In</button>
 							   <%--<input type="button" name="submit" value="login" class="custom-button login"  id="BtnLogin" onclick="Login();" />--%>
-								<p class="text-center">Forgot Password ? <a href="#">Click here</a>
+								<%--<span class="text-left"><a href="#">Remember me</a></span>--%>
+                                <br />
+                          <div>     
+                            <label style="display:inline; color:Black">
+                              <input type="checkbox" class="control-label" id="chkbase" Unchecked /> Remember Me
+                            </label>
+                                
+                                <p style="display:inline";><span style ="color:White;"> Forgot Pass</span><a style="color:#60BF69";href="#">Forgot Password</a></p>
+                               
+ 
+                            </div>
+                            <br />
+                            <br />
+
+                            <br />
+                            <br />
 							</div>
-							
+                              <div>     
+                            <label style="display:inline; color:black">
+                              <input  type="checkbox" class="control-label" id="Checkbox1" Unchecked /> Don't have an account yet?
+                            </label>
+                                
+                                <span style="margin-right:1.25em; display:inline-block;" />    <a href="#" style="margin-left:2em; color:#60BF69">Register Here</a>
+                               
+ 
+                            </div>
 						</form>
 						
 					</div>
